@@ -1,18 +1,25 @@
 import BackCard from 'common/BackCard';
-import React from 'react';
-import OpenedCard from 'common/OpenedCard';
+import React, { useContext } from 'react';
+import OpenedDrawer from 'common/OpenedDrawer';
+import { Container, List } from '@mui/material';
+import CardsContext from '../store/context';
+import { TransitionGroup } from 'react-transition-group';
 
 const Main = () => {
-  const arr = ['', '', ''];
+  const { allCards } = useContext(CardsContext);
 
   return (
-    <div>
-      <h1>hello</h1>
-      {arr.map((el) => (
-        <BackCard />
-      ))}
-      <OpenedCard />
-    </div>
+    <Container>
+      <h1>Select a card</h1>
+      <List>
+        <TransitionGroup style={{ display: 'flex', flexDirection: 'row', padding: 0, alignItems: 'flex-start' }}>
+          {allCards.map((card) => (
+            <BackCard key={card.id} card={card} />
+          ))}
+        </TransitionGroup>
+      </List>
+      <OpenedDrawer />
+    </Container>
   );
 };
 
