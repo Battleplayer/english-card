@@ -9,38 +9,49 @@ const CardsContext = createContext({
   allCards: [],
   openDrawer: () => {},
   closeDrawer: () => {},
-  selectCard: (card: Card | null): void => {},
-  addCardToFinish: (card: FinishedCard): void => {},
+  selectCard: (card: null | Card) => {},
+  addCardToFinish: (id: number, rating: number): void => {},
+  resetCards: () => {},
 });
 
 export default CardsContext;
 
-interface FinishedCard {
-  [key: number]: number;
-}
-
 export const CardsProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const savedCards = JSON.parse(localStorage.getItem('finishedCards')) || [];
+  const savedCards = JSON.parse(localStorage.getItem('finishedCards')) || {};
+
   const [allCards, setAllCards] = useState<Card[]>(grammarList);
   const [selectedCard, setSelectedCard] = useState<null | Card>(null);
-  const [finishedCards, setFinishedCards] = useState<FinishedCard[] | []>(savedCards);
+  const [finishedCards, setFinishedCards] = useState<any>(savedCards ?? {});
   const [isDrawerOpened, setDrawerOpen] = useState<boolean>(false);
 
   const openDrawer = () => setDrawerOpen(true);
 
   const closeDrawer = () => setDrawerOpen(false);
 
-  const addCardToFinish = (card: FinishedCard) => {
+  const addCardToFinish = (id: number, rating: number) => {
+    console.log(id);
+    console.log(rating);
     setSelectedCard(null);
-    const finishedList = [...finishedCards, card];
+    const finishedList = { ...finishedCards, [id]: rating };
     localStorage.setItem('finishedCards', JSON.stringify(finishedList));
     setFinishedCards(finishedList);
+    closeDrawer();
   };
 
   const selectCard = (card: null | Card) => {
-    if (card) openDrawer();
+    if (card) {
+      openDrawer();
+      setAllCards((prevState) => prevState.filter((el) => el.id !== card.id));
+    } else {
+      closeDrawer();
+    }
     setSelectedCard(card);
-    setAllCards((prevState) => prevState.filter((el) => el.id !== card.id));
+  };
+
+  const resetCards = () => {
+    setFinishedCards({});
+    localStorage.removeItem('finishedCards');
+    setAllCards(grammarList);
   };
 
   return (
@@ -54,6 +65,7 @@ export const CardsProvider: FC<{ children: ReactNode }> = ({ children }) => {
         addCardToFinish,
         selectCard,
         allCards,
+        resetCards,
       }}
     >
       {children}
