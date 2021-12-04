@@ -1,10 +1,11 @@
 import React, { FC, useCallback, useContext, useState } from 'react';
-import { Box, Button, Dialog, DialogActions, DialogTitle, LinearProgress, Rating } from '@mui/material';
-import CardsContext from '../store/context';
-import FinishedArray from './FinishedArray';
+import { Box, Button, LinearProgress, Rating } from '@mui/material';
+import CardsContext from 'store/context';
+import FinishedArray from 'core/arrays/FinishedArray';
+import DialogSmall from 'common/DialogSmall';
 
 const OpenedCard: FC = () => {
-  const { selectedCard, addCardToFinish, resetCards } = useContext(CardsContext);
+  const { selectedCard, addCardToFinish, resetCards, finishedCards } = useContext(CardsContext);
 
   const [rating, setRating] = useState(0);
 
@@ -34,17 +35,19 @@ const OpenedCard: FC = () => {
     );
 
   return (
-    <Box style={{ width: '80vw' }}>
-      <Button variant="contained" color="info" onClick={resetCards}>
-        Reset finished list
-      </Button>
+    <Box style={{ width: '80vw' }} p={4}>
+      {Object.keys(finishedCards).length > 0 && (
+        <Button variant="contained" color="info" onClick={resetCards}>
+          Reset finished list
+        </Button>
+      )}
       <FinishedArray />
       <Button variant="contained" onClick={handleClickOpen}>
         Skip
       </Button>
       <p>{selectedCard.header}</p>
       <p>{selectedCard.description}</p>
-      <Box>
+      <Box display="flex" alignItems="center">
         <Rating
           name="simple-controlled"
           value={rating}
@@ -52,28 +55,19 @@ const OpenedCard: FC = () => {
             setRating(newValue);
           }}
         />
+        <span style={{ margin: '0 5px' }} />
         <Button onClick={handleSave} disabled={!rating} variant="contained">
           Save result
         </Button>
       </Box>
-      <Dialog
+      <DialogSmall
+        title="Do you wanna skip question?"
+        confirm="Skip"
+        cancel="Wait, I know answer"
         open={open}
-        keepMounted
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-slide-title"
-        aria-describedby="alert-dialog-slide-description"
-      >
-        <DialogTitle id="alert-dialog-slide-title">{"Use Google's location service?"}</DialogTitle>
-
-        <DialogActions>
-          <Button onClick={handleClose} color="primary" variant="contained">
-            Wait, I know answer
-          </Button>
-          <Button onClick={handleSkip} color="secondary" variant="contained">
-            Skip
-          </Button>
-        </DialogActions>
-      </Dialog>
+        handleClose={handleClose}
+        handleConfirm={handleSkip}
+      />
     </Box>
   );
 };
