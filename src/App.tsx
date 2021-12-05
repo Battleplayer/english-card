@@ -7,18 +7,25 @@ import MainDrawer from './common/MainDrawer';
 import Share from './common/Share';
 import Toast from './common/Toast';
 import StartArray from './core/arrays/StartArray';
+import Header from 'common/Header';
+import { I18nextProvider } from 'react-i18next';
+import i18n from 'translate';
+import BottomDrawer from './common/BottomDrawer';
 
 const App = () => {
   return (
-    <CardsProvider>
-      <Container style={{ minHeight: '100vh' }}>
-        <h1>Select a card</h1>
-        <StartArray />
-        <MainDrawer />
-        <Share />
-        <Toast />
-      </Container>
-    </CardsProvider>
+    <I18nextProvider i18n={i18n}>
+      <CardsProvider>
+        <Container style={{ minHeight: '100vh' }}>
+          <Header />
+          <StartArray />
+          <MainDrawer />
+          <Share />
+          <Toast />
+          <BottomDrawer />
+        </Container>
+      </CardsProvider>
+    </I18nextProvider>
   );
 };
 

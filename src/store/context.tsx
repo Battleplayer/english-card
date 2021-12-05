@@ -1,5 +1,6 @@
 import { Card } from 'interfaces/Card';
-import { createContext, FC, useState, ReactNode, useCallback, useMemo } from 'react';
+import { createContext, FC, useState, ReactNode, useCallback, useMemo, useEffect } from 'react';
+import i18n from 'translate';
 import grammarList from './grammarList';
 
 const CardsContext = createContext({
@@ -27,6 +28,12 @@ export default CardsContext;
 
 export const CardsProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const savedCards = useMemo(() => JSON.parse(localStorage.getItem('finishedCards')) || {}, []);
+  const savedLanguage = useMemo(() => {
+    if (localStorage.hasOwnProperty('language')) {
+      return localStorage.getItem('language');
+    }
+    return 'en';
+  }, []);
 
   const [allCards, setAllCards] = useState<Card[]>(grammarList);
   const [selectedCard, setSelectedCard] = useState<null | Card>(null);
@@ -34,6 +41,10 @@ export const CardsProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [isDrawerOpened, setDrawerOpen] = useState<boolean>(false);
   const [isSnackBarOpened, setSnackBarOpened] = useState(false);
   const [snackMessage, setSnackMessage] = useState<null | string>(null);
+
+  useEffect(() => {
+    if (savedLanguage) i18n.changeLanguage(savedLanguage);
+  }, [savedLanguage]);
 
   const openDrawer = useCallback(() => {
     setDrawerOpen(true);
