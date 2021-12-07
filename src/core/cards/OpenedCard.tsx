@@ -1,8 +1,10 @@
 import React, { FC, useCallback, useContext, useState } from 'react';
-import { Box, Button, LinearProgress, Rating } from '@mui/material';
+import { Box, Button, Rating } from '@mui/material';
 import CardsContext from 'store/context';
-import FinishedArray from 'core/arrays/FinishedArray';
-import DialogSmall from 'common/DialogSmall';
+import { DialogSmall } from 'common';
+
+import loadable from '@loadable/component';
+const SelectedCard = loadable(() => import('core/cards/SelectedCard'));
 
 const OpenedCard: FC = () => {
   const { selectedCard, addCardToFinish, resetCards, finishedCards } = useContext(CardsContext);
@@ -27,26 +29,20 @@ const OpenedCard: FC = () => {
     addCardToFinish(selectedCard.id, 0);
   }, [addCardToFinish, selectedCard]);
 
-  if (!selectedCard)
-    return (
-      <Box sx={{ width: '100%' }}>
-        <LinearProgress />
-      </Box>
-    );
+  if (!selectedCard) return null;
 
   return (
-    <Box style={{ width: '80vw' }} p={4}>
+    <Box sx={{ width: '80vw', minHeight: '100vh', backgroundColor: '#fff' }} p={4}>
       {Object.keys(finishedCards).length > 0 && (
         <Button variant="contained" color="info" onClick={resetCards}>
           Reset finished list
         </Button>
       )}
-      <FinishedArray />
-      <Button variant="contained" onClick={handleClickOpen}>
+
+      <Button variant="contained" onClick={handleClickOpen} sx={{ marginLeft: 1 }}>
         Skip
       </Button>
-      <p>{selectedCard.header}</p>
-      <p>{selectedCard.description}</p>
+      <SelectedCard />
       <Box display="flex" alignItems="center">
         <Rating
           name="simple-controlled"

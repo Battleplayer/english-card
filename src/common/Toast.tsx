@@ -1,8 +1,5 @@
-import * as React from 'react';
-
-import Snackbar from '@mui/material/Snackbar';
-
 import { FC, useContext } from 'react';
+import Snackbar from '@mui/material/Snackbar';
 import CardsContext from 'store/context';
 
 const Toast: FC = () => {

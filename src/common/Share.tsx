@@ -1,9 +1,8 @@
-import * as React from 'react';
+import { useCallback, useContext, useState } from 'react';
 import SpeedDial from '@mui/material/SpeedDial';
 import FlareIcon from '@mui/icons-material/Flare';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
-import { useCallback, useContext, useState } from 'react';
 import CardsContext from 'store/context';
 
 const BasicSpeedDial = () => {

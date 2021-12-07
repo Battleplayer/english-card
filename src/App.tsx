@@ -1,16 +1,14 @@
 import React from 'react';
-import './App.css';
 import { CardsProvider } from 'store/context';
 import { Container } from '@mui/material';
-
-import MainDrawer from './common/MainDrawer';
-import Share from './common/Share';
-import Toast from './common/Toast';
-import StartArray from './core/arrays/StartArray';
-import Header from 'common/Header';
+import { Header, Share, Toast } from './common';
 import { I18nextProvider } from 'react-i18next';
 import i18n from 'translate';
-import BottomDrawer from './common/BottomDrawer';
+import loadable from '@loadable/component';
+
+const StartArray = loadable(() => import('core/arrays/StartArray'));
+const BottomDrawer = loadable(() => import('common/drawers/BottomDrawer'));
+const ActiveCardDrawer = loadable(() => import('common/drawers/ActiveCardDrawer'));
 
 const App = () => {
   return (
@@ -19,7 +17,7 @@ const App = () => {
         <Container style={{ minHeight: '100vh' }}>
           <Header />
           <StartArray />
-          <MainDrawer />
+          <ActiveCardDrawer />
           <Share />
           <Toast />
           <BottomDrawer />
