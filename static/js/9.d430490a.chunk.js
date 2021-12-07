@@ -1,0 +1,2 @@
+(this["webpackJsonpenglish-card"]=this["webpackJsonpenglish-card"]||[]).push([[9],{217:function(e,c,s){"use strict";s.r(c);var t=s(0),n=s(36),r=s(2);c.default=function(){var e=Object(t.useContext)(n.b).selectedCard;return Object(r.jsxs)("div",{children:[Object(r.jsx)("p",{children:e.header}),Object(r.jsx)("p",{children:e.description})]})}}}]);
+//# sourceMappingURL=9.d430490a.chunk.js.map

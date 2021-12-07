@@ -1,0 +1,35 @@
+{
+  "files": {
+    "main.css": "/english-card/static/css/main.917ccb60.chunk.css",
+    "main.js": "/english-card/static/js/main.fa666be7.chunk.js",
+    "main.js.map": "/english-card/static/js/main.fa666be7.chunk.js.map",
+    "runtime-main.js": "/english-card/static/js/runtime-main.8d655b99.js",
+    "runtime-main.js.map": "/english-card/static/js/runtime-main.8d655b99.js.map",
+    "static/js/2.4f89a8cd.chunk.js": "/english-card/static/js/2.4f89a8cd.chunk.js",
+    "static/js/2.4f89a8cd.chunk.js.map": "/english-card/static/js/2.4f89a8cd.chunk.js.map",
+    "static/js/3.5280804a.chunk.js": "/english-card/static/js/3.5280804a.chunk.js",
+    "static/js/3.5280804a.chunk.js.map": "/english-card/static/js/3.5280804a.chunk.js.map",
+    "static/js/4.7d129418.chunk.js": "/english-card/static/js/4.7d129418.chunk.js",
+    "static/js/4.7d129418.chunk.js.map": "/english-card/static/js/4.7d129418.chunk.js.map",
+    "static/js/5.23016f81.chunk.js": "/english-card/static/js/5.23016f81.chunk.js",
+    "static/js/5.23016f81.chunk.js.map": "/english-card/static/js/5.23016f81.chunk.js.map",
+    "static/js/6.649ac9c2.chunk.js": "/english-card/static/js/6.649ac9c2.chunk.js",
+    "static/js/6.649ac9c2.chunk.js.map": "/english-card/static/js/6.649ac9c2.chunk.js.map",
+    "static/js/7.883fc6fb.chunk.js": "/english-card/static/js/7.883fc6fb.chunk.js",
+    "static/js/7.883fc6fb.chunk.js.map": "/english-card/static/js/7.883fc6fb.chunk.js.map",
+    "static/js/8.4366d9fb.chunk.js": "/english-card/static/js/8.4366d9fb.chunk.js",
+    "static/js/8.4366d9fb.chunk.js.map": "/english-card/static/js/8.4366d9fb.chunk.js.map",
+    "static/js/9.d430490a.chunk.js": "/english-card/static/js/9.d430490a.chunk.js",
+    "static/js/9.d430490a.chunk.js.map": "/english-card/static/js/9.d430490a.chunk.js.map",
+    "index.html": "/english-card/index.html",
+    "static/css/main.917ccb60.chunk.css.map": "/english-card/static/css/main.917ccb60.chunk.css.map",
+    "static/js/2.4f89a8cd.chunk.js.LICENSE.txt": "/english-card/static/js/2.4f89a8cd.chunk.js.LICENSE.txt",
+    "static/media/logo_english.35aca5c1.svg": "/english-card/static/media/logo_english.35aca5c1.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8d655b99.js",
+    "static/js/2.4f89a8cd.chunk.js",
+    "static/css/main.917ccb60.chunk.css",
+    "static/js/main.fa666be7.chunk.js"
+  ]
+}
