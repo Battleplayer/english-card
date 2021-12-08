@@ -22,9 +22,28 @@ const CardsContext = createContext({
   setSnackBarMessage: (message: string) => {},
   snackMessage: null,
   setSnackBarOpened: (value: boolean) => {},
+
+  //
+  shuffleAndReset: () => {},
 });
 
 export default CardsContext;
+
+const shuffle = (array) => {
+  let currentIndex = array.length,
+    randomIndex;
+
+  // While there remain elements to shuffle...
+  while (currentIndex !== 0) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+  }
+  return array;
+};
 
 export const CardsProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const savedCards = useMemo(() => JSON.parse(localStorage.getItem('finishedCards')) || {}, []);
@@ -35,7 +54,10 @@ export const CardsProvider: FC<{ children: ReactNode }> = ({ children }) => {
     return 'en';
   }, []);
 
-  const [allCards, setAllCards] = useState<Card[]>(grammarList);
+  const savedArr = Object.keys(savedCards).map((key) => +key);
+  const startList = grammarList.filter((item) => !savedArr.includes(item.id));
+
+  const [allCards, setAllCards] = useState<Card[]>(shuffle(startList));
   const [selectedCard, setSelectedCard] = useState<null | Card>(null);
   const [finishedCards, setFinishedCards] = useState<any>(savedCards ?? {});
   const [isDrawerOpened, setDrawerOpen] = useState<boolean>(false);
@@ -89,6 +111,12 @@ export const CardsProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setSnackMessage(message);
   }, []);
 
+  const shuffleAndReset = useCallback(() => {
+    setAllCards(shuffle(grammarList));
+    localStorage.removeItem('finishedCards');
+    setFinishedCards({});
+  }, []);
+
   return (
     <CardsContext.Provider
       value={{
@@ -110,6 +138,9 @@ export const CardsProvider: FC<{ children: ReactNode }> = ({ children }) => {
         setSnackBarOpened,
         setSnackBarMessage,
         snackMessage,
+
+        // Shuffle array
+        shuffleAndReset,
       }}
     >
       {children}

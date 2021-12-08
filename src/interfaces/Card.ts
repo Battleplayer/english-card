@@ -1,5 +1,7 @@
 export interface Card {
   id: number;
-  header: string;
-  description: string;
+  name: string;
+  rules: string[];
+  negation: string[];
+  question: string[];
 }
