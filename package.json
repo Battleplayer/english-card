@@ -2,7 +2,7 @@
   "name": "english-card",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://battleplayer.github.io/english-card/",
+  "homepage": "https://free-english-card.netlify.app/",
   "dependencies": {
     "@emotion/react": "11.7.0",
     "@emotion/styled": "11.6.0",
