@@ -4,14 +4,9 @@ import BackCard from 'core/cards/BackCard';
 import CardsContext from 'store/context';
 
 const StartArray = () => {
-  const { allCards, resetCards, finishedCards, shuffleAndReset } = useContext(CardsContext);
+  const { allCards, finishedCards, shuffleAndReset } = useContext(CardsContext);
   return (
     <Box my={2}>
-      {Object.keys(finishedCards).length > 0 && (
-        <Button variant="contained" color="info" onClick={resetCards}>
-          Reset finished list
-        </Button>
-      )}
       {Object.keys(finishedCards).length > 0 && (
         <Button onClick={shuffleAndReset} variant="outlined" color="success" sx={{ marginLeft: 1 }}>
           Shuffle And Reset

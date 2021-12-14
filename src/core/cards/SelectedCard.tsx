@@ -38,7 +38,13 @@ const SelectedCard = () => {
           </Card>
         </Box>
       ) : (
-        <Button variant="contained" color="primary" onClick={setVisible} fullWidth sx={{ padding: 2 }}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={setVisible}
+          fullWidth
+          sx={{ padding: 2, fontWeight: '700' }}
+        >
           Show the answer
         </Button>
       )}

@@ -1,3 +1,4 @@
+import { PaletteMode, useMediaQuery } from '@mui/material';
 import { Card } from 'interfaces/Card';
 import { createContext, FC, useState, ReactNode, useCallback, useMemo, useEffect } from 'react';
 import i18n from 'translate';
@@ -9,8 +10,9 @@ const CardsContext = createContext({
   finishedCards: [],
   selectCard: (card: null | Card) => {},
   addCardToFinish: (id: number, rating: number): void => {},
-  resetCards: () => {},
+
   allCards: [],
+  shuffleAndReset: () => {},
 
   // Drawer
   openDrawer: () => {},
@@ -24,7 +26,9 @@ const CardsContext = createContext({
   setSnackBarOpened: (value: boolean) => {},
 
   //
-  shuffleAndReset: () => {},
+
+  colorMode: 'light',
+  toggleColorMode: (): void => {},
 });
 
 export default CardsContext;
@@ -56,6 +60,7 @@ export const CardsProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   const savedArr = Object.keys(savedCards).map((key) => +key);
   const startList = grammarList.filter((item) => !savedArr.includes(item.id));
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
   const [allCards, setAllCards] = useState<Card[]>(shuffle(startList));
   const [selectedCard, setSelectedCard] = useState<null | Card>(null);
@@ -63,6 +68,12 @@ export const CardsProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [isDrawerOpened, setDrawerOpen] = useState<boolean>(false);
   const [isSnackBarOpened, setSnackBarOpened] = useState(false);
   const [snackMessage, setSnackMessage] = useState<null | string>(null);
+
+  const [colorMode, setColorMode] = useState<PaletteMode>(prefersDarkMode ? 'dark' : 'light');
+  console.log('c=', colorMode);
+  const toggleColorMode = useCallback(() => {
+    setColorMode((prevMode: PaletteMode) => (prevMode === 'light' ? 'dark' : 'light'));
+  }, []);
 
   useEffect(() => {
     if (savedLanguage) i18n.changeLanguage(savedLanguage);
@@ -100,12 +111,6 @@ export const CardsProvider: FC<{ children: ReactNode }> = ({ children }) => {
     [closeDrawer, openDrawer]
   );
 
-  const resetCards = useCallback(() => {
-    setFinishedCards({});
-    localStorage.removeItem('finishedCards');
-    setAllCards(grammarList);
-  }, []);
-
   const setSnackBarMessage = useCallback((message) => {
     setSnackBarOpened(true);
     setSnackMessage(message);
@@ -123,11 +128,12 @@ export const CardsProvider: FC<{ children: ReactNode }> = ({ children }) => {
         // Cards
         selectedCard,
         finishedCards,
-
         addCardToFinish,
-        resetCards,
         allCards,
         selectCard,
+        // Shuffle array
+        shuffleAndReset,
+
         // Drawer
         isDrawerOpened,
         closeDrawer,
@@ -139,8 +145,9 @@ export const CardsProvider: FC<{ children: ReactNode }> = ({ children }) => {
         setSnackBarMessage,
         snackMessage,
 
-        // Shuffle array
-        shuffleAndReset,
+        // colormode
+        colorMode,
+        toggleColorMode,
       }}
     >
       {children}

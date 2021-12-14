@@ -7,7 +7,7 @@ import loadable from '@loadable/component';
 const SelectedCard = loadable(() => import('core/cards/SelectedCard'));
 
 const OpenedCard: FC = () => {
-  const { selectedCard, addCardToFinish, resetCards, finishedCards } = useContext(CardsContext);
+  const { selectedCard, addCardToFinish } = useContext(CardsContext);
 
   const [rating, setRating] = useState(0);
 
@@ -34,12 +34,6 @@ const OpenedCard: FC = () => {
   return (
     <Box sx={{ width: '80vw', minHeight: '100vh', backgroundColor: '#fff' }} p={4}>
       <Container>
-        {Object.keys(finishedCards).length > 0 && (
-          <Button variant="contained" color="info" onClick={resetCards}>
-            Reset finished list
-          </Button>
-        )}
-
         <Button variant="contained" onClick={handleClickOpen} sx={{ marginLeft: 1 }} color="secondary">
           Skip
         </Button>
